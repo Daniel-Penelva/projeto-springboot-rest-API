@@ -154,8 +154,47 @@ public class GreetingsController {
     @DeleteMapping(value = "deletar")
     @ResponseBody
     public ResponseEntity<String> deletar(@RequestParam Long iduser){
-       usuarioRepository.deleteById(iduser);;
+       usuarioRepository.deleteById(iduser);
        
        return new ResponseEntity<String>("Usuário deletado com sucesso", HttpStatus.OK);
+    }
+    
+    
+    /**
+     * Temos um método do controlador que recebe uma requisição HTTP do tipo GET na rota "/buscaruserid". O objetivo desse método é 
+     * buscar um usuário no banco de dados com base no ID fornecido e retornar uma resposta HTTP contendo os dados do usuário encontrado.
+     * 
+     * Vamos explicar cada parte do script:
+     * 
+     * @GetMapping(value = "buscaruserid"): Essa anotação é usada para mapear a rota "/buscaruserid" ao método buscaruserid(). Ela indica 
+     * que o método deve ser executado quando uma requisição GET é feita para a rota "/buscaruserid".
+     * 
+     * @ResponseBody: Essa anotação indica que o valor retornado pelo método deve ser colocado diretamente no corpo da resposta HTTP, em 
+     * vez de ser interpretado como o nome de uma view (página HTML) a ser renderizada.
+     * 
+     * public ResponseEntity<Usuario> buscaruserid(@RequestParam(name = "iduser") Long iduser): Esse é o método buscaruserid(), que 
+     * recebe o parâmetro iduser como um parâmetro de consulta (query parameter) da requisição HTTP. Esse parâmetro deve ser fornecido na 
+     * URL da requisição, por exemplo, "/buscaruserid?iduser=1".
+     * 
+     * Usuario usuario = usuarioRepository.findById(iduser).get();: Aqui, o usuário é buscado no banco de dados usando o repositório 
+     * usuarioRepository e o método findById(). O método findById() retorna um objeto do tipo Optional<Usuario>, que contém o usuário 
+     * encontrado ou é vazio se nenhum usuário com o ID fornecido for encontrado. O método get() é usado para obter o usuário do 
+     * Optional<Usuario>.
+     * 
+     * return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);: Nesta linha, é criada uma instância da classe ResponseEntity contendo 
+     * o usuário encontrado e o status HTTP "200 OK". A classe ResponseEntity permite que você crie uma resposta HTTP personalizada, onde 
+     * você pode definir o corpo, os cabeçalhos e o status da resposta.
+     * 
+     * Em resumo, esse método buscaruserid() recebe um parâmetro iduser contendo o ID do usuário a ser buscado, busca o usuário 
+     * correspondente no banco de dados usando o repositório usuarioRepository e retorna uma resposta HTTP contendo os dados do usuário 
+     * encontrado com o status "200 OK". Isso indica que a operação de busca foi bem-sucedida.
+     * */
+    
+    // http://localhost:8000/buscaruserid
+    @GetMapping(value = "buscaruserid")
+    @ResponseBody
+    public ResponseEntity<Usuario> buscaruserid(@RequestParam(name = "iduser") Long iduser){
+      Usuario usuario =  usuarioRepository.findById(iduser).get(); 
+       return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
     }
 }

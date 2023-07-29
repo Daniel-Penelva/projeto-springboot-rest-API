@@ -166,5 +166,5 @@ como faz isso, usando o postman?
 
 Na aba "Body" é possível fazer pela opção 'x-www-form-urlenconded' ou o 'form-data', onde vai ser passado a key (userid) value (<valor do id>).
 
-
+Para pesquisar (ou buscar) um usuário por id pelo postman é seguido o mesmo processo do deletar por id.
 
