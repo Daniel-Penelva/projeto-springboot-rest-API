@@ -33,3 +33,91 @@ Essas propriedades são essenciais para configurar corretamente a conexão com o
 com o banco de dados. Cada propriedade tem um papel importante na configuração da aplicação Spring Boot que utiliza o banco de dados 
 PostgreSQL.
 
+------------------------------------------------------------------- // --------------------------------------------------------------------
+
+A interface JpaRepository faz parte do Spring Data JPA, que é um módulo do Spring Framework destinado a facilitar a integração com o JPA 
+(Java Persistence API) para acesso a bancos de dados relacionais.
+
+A JpaRepository é uma subinterface da PagingAndSortingRepository e define um conjunto de métodos padrão que fornecem operações CRUD 
+(Create, Read, Update e Delete) básicas para entidades JPA, como salvar, atualizar, excluir e consultar registros em um banco de dados.
+
+Aqui estão alguns dos métodos mais comuns fornecidos pela JpaRepository:
+
+ -> save(T entity): Salva ou atualiza a entidade no banco de dados. Se a entidade já existe no banco, ela será atualizada, caso contrário, será inserida.
+
+ -> deleteById(ID id): Exclui a entidade pelo ID especificado.
+
+ -> findById(ID id): Busca a entidade pelo ID especificado.
+
+ -> findAll(): Busca todas as entidades do tipo especificado.
+
+ -> findAll(Pageable pageable): Busca todas as entidades com suporte para paginação e ordenação.
+
+ -> count(): Retorna o número total de registros da entidade no banco de dados.
+
+A vantagem de usar a JpaRepository é que você pode criar facilmente um repositório para suas entidades sem a necessidade de escrever as 
+consultas SQL manualmente. Além disso, o Spring Data JPA fornece suporte para consultas personalizadas, permitindo que você defina métodos 
+de consulta na interface do repositório e o Spring gerará automaticamente as consultas correspondentes com base nos nomes dos métodos.
+
+Em resumo, a JpaRepository é uma interface poderosa do Spring Data JPA que simplifica a interação com o banco de dados e reduz a quantidade 
+de código boilerplate necessário para criar um repositório de entidades JPA.
+
+------------------------------------------------------------------- // --------------------------------------------------------------------
+
+A anotação @Autowired é uma anotação do Spring Framework utilizada para realizar a injeção de dependências automaticamente em classes 
+gerenciadas pelo contêiner de IoC (Inversion of Control) do Spring.
+
+Quando você anota um campo, método setter ou construtor com @Autowired, o Spring irá procurar por uma instância do tipo da classe desse 
+campo/método no contexto do contêiner e irá injetá-la automaticamente, sem que você precise criar a instância manualmente.
+
+Existem várias maneiras de usar a anotação @Autowired:
+
+1. Injeção em campo:
+
+```
+@Autowired
+private ExemploService exemploService;
+```
+
+Neste caso, o Spring procurará uma instância de ExemploService no contexto do contêiner e a injetará no campo exemploService.
+
+2. Injeção em método setter:
+
+```
+private ExemploService exemploService;
+
+@Autowired
+public void setExemploService(ExemploService exemploService) {
+    this.exemploService = exemploService;
+}
+```
+Nesse caso, o Spring procurará uma instância de ExemploService no contexto do contêiner e a injetará chamando o método setExemploService.
+
+3. Injeção em construtor:
+ ```
+ private ExemploService exemploService;
+
+@Autowired
+public ClasseExemplo(ExemploService exemploService) {
+    this.exemploService = exemploService;
+}
+ ```
+Aqui, o Spring procurará uma instância de ExemploService no contexto do contêiner e a injetará automaticamente ao criar uma instância de 
+ClasseExemplo.
+
+É importante ressaltar que, para que a injeção de dependências funcione corretamente, a classe a ser injetada (no exemplo acima, a classe 
+ExemploService) também deve ser um componente gerenciado pelo Spring, o que é geralmente feito por meio das anotações @Service, @Repository, 
+ou @Component, dependendo do papel da classe na aplicação.
+
+Além disso, é necessário configurar o Spring para fazer a varredura dos componentes e criar o contexto do contêiner, o que é geralmente 
+feito com a anotação @SpringBootApplication ou outras anotações equivalentes, dependendo da versão do Spring que você está usando.
+
+Em resumo, a anotação @Autowired é uma das principais ferramentas do Spring para realizar a injeção de dependências automaticamente e 
+facilitar a configuração e gerenciamento de componentes em uma aplicação Spring.
+
+
+
+
+
+ 
+
