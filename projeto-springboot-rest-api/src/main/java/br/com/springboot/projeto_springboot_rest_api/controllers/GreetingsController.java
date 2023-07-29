@@ -249,4 +249,48 @@ public class GreetingsController {
        Usuario user = usuarioRepository.saveAndFlush(usuario);
        return new ResponseEntity<Usuario>(user, HttpStatus.OK);
     }
+    
+    
+    /**
+     * Vamos analisar esse script:
+     * 
+     * @GetMapping(value = "buscarPorNome"): Essa é a anotação @GetMapping, que indica que esse método será acionado quando houver uma 
+     * requisição HTTP GET para o caminho /buscarPorNome. Em outras palavras, quando o servidor receber uma solicitação GET para esse 
+     * caminho, este método será executado.
+     * 
+     * @ResponseBody: Essa é outra anotação que indica que o valor retornado pelo método será serializado diretamente para o corpo da 
+     * resposta HTTP. Neste caso, o método retorna uma lista de objetos Usuario, e a anotação @ResponseBody garante que essa lista será 
+     * convertida em JSON e enviada como resposta da requisição.
+     * 
+     * public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "nome") String nome): Esse é o método buscarPorNome que 
+     * será acionado quando a requisição GET for feita para /buscarPorNome. Ele recebe um parâmetro nome, que será fornecido na URL da 
+     * requisição como um parâmetro de consulta. A anotação @RequestParam indica que esse parâmetro será extraído da URL.
+     * 
+     * List<Usuario> usuario = usuarioRepository.buscarByName(nome);: Nesta linha, o método buscarByName é chamado no repositório 
+     * usuarioRepository para buscar usuários cujo nome corresponda ao valor fornecido como parâmetro nome. O resultado dessa consulta é 
+     * armazenado na lista usuario. O método trim() é usado para remover quaisquer espaços em branco no início e no final do valor 
+     * fornecido como parâmetro, evitando problemas de busca por espaços desnecessários. toUpperCase(): O método toUpperCase() é um 
+     * método da classe String que converte todos os caracteres da string em letras maiúsculas. Isso é feito para garantir que a consulta 
+     * seja insensível a maiúsculas/minúsculas, ou seja, para que a busca não diferencie letras maiúsculas de minúsculas ao comparar o 
+     * nome fornecido com os nomes armazenados no banco de dados.
+     * 
+     * return new ResponseEntity<List<Usuario>>(usuario, HttpStatus.OK);: Finalmente, a lista de usuários encontrada é retornada como 
+     * resposta da requisição HTTP. A classe ResponseEntity permite que você defina a resposta HTTP completa, incluindo o corpo da 
+     * resposta e o status de resposta. Neste caso, a lista de usuários é definida como corpo da resposta e o status é definido como 
+     * HttpStatus.OK (código 200), indicando que a requisição foi bem-sucedida.
+     * 
+     * Em resumo, esse método buscarPorNome é responsável por buscar usuários no banco de dados cujo nome corresponda ao valor fornecido 
+     * como parâmetro nome na URL da requisição. A lista de usuários encontrada é retornada como uma resposta HTTP em formato JSON. Isso 
+     * permite que os clientes façam uma solicitação GET para /buscarPorNome com o parâmetro nome na URL e obtenham a lista de usuários 
+     * correspondentes como resposta.
+     * */
+    
+    // http://localhost:8000/buscarPorNome
+    @GetMapping(value = "buscarPorNome")
+    @ResponseBody
+    public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "nome") String nome){
+      List<Usuario> usuario =  usuarioRepository.buscarByName(nome.trim().toUpperCase());
+       return new ResponseEntity<List<Usuario>>(usuario, HttpStatus.OK);
+    }
+    
 }
