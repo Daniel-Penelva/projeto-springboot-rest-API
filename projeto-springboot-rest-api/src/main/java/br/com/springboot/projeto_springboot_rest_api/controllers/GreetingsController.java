@@ -5,10 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +82,80 @@ public class GreetingsController {
     	
     	List<Usuario> usuarios = usuarioRepository.findAll();
     	return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
+    }
+    
+    
+    /**
+     * Temos um método do controlador que recebe uma requisição HTTP do tipo POST na rota "/salvar". O 
+     * objetivo desse método é salvar um objeto Usuario no banco de dados e retornar uma resposta HTTP personalizada.
+     * 
+     * Vamos analisar o script abaixo:
+     * 
+     * @PostMapping(value = "salvar"): Essa anotação é usada para mapear a rota "/salvar" ao método salvar(). Ela indica que o método 
+     * deve ser executado quando uma requisição POST é feita para a rota "/salvar".
+     * 
+     * @ResponseBody: Essa anotação indica que o valor retornado pelo método deve ser colocado diretamente no corpo da resposta HTTP, em 
+     * vez de ser interpretado como o nome de uma view (página HTML) a ser renderizada.
+     * 
+     * public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario): Esse é o método salvar(), que recebe um objeto Usuario no 
+     * corpo da requisição HTTP. O parâmetro @RequestBody indica que o objeto Usuario é esperado no corpo da requisição.
+     * 
+     * Usuario user = usuarioRepository.save(usuario);: Aqui, o objeto usuario recebido na requisição é salvo no banco de dados usando o 
+     * repositório usuarioRepository. O método save() é usado para persistir o objeto no banco de dados e retorna o objeto Usuario salvo, 
+     * que é armazenado na variável user.
+     * 
+     * return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);: Nesta linha, é criada uma instância da classe ResponseEntity 
+     * contendo o objeto Usuario salvo (armazenado em user) e o status HTTP "201 Created". A classe ResponseEntity permite que você crie 
+     * uma resposta HTTP personalizada, onde você pode definir o corpo, os cabeçalhos e o status da resposta.
+     * 
+     * Em resumo, esse método salvar() recebe um objeto Usuario no corpo da requisição POST, salva-o no banco de dados usando o 
+     * repositório usuarioRepository e retorna uma resposta HTTP contendo o objeto Usuario salvo com o status "201 Created". Isso indica 
+     * que a operação de salvamento foi bem-sucedida e que um novo recurso (usuário) foi criado no servidor.
+     * */
+    
+    // http://localhost:8000/salvar
+    @PostMapping(value = "salvar")
+    @ResponseBody
+    public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
+       Usuario user = usuarioRepository.save(usuario);
+       
+       return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);
+    }
+    
+    
+    
+    /**
+     * Temos um método do controlador que recebe uma requisição HTTP do tipo DELETE na rota "/deletar". O objetivo desse método é deletar 
+     * um usuário com base no ID fornecido e retornar uma resposta HTTP personalizada.
+     * 
+     * Vamos analisar o script abaixo:
+     * 
+     * @DeleteMapping(value = "deletar"): Essa anotação é usada para mapear a rota "/deletar" ao método deletar(). Ela indica que o 
+     * método deve ser executado quando uma requisição DELETE é feita para a rota "/deletar".
+     * 
+     * @ResponseBody: Essa anotação indica que o valor retornado pelo método deve ser colocado diretamente no corpo da resposta HTTP, em 
+     * vez de ser interpretado como o nome de uma view (página HTML) a ser renderizada.
+     * 
+     * public ResponseEntity<String> deletar(@RequestParam Long iduser): Esse é o método deletar(), que recebe o parâmetro iduser como um parâmetro de consulta (query parameter) da requisição HTTP. Esse parâmetro deve ser fornecido na URL da requisição, por exemplo, "/deletar?iduser=1".
+     * 
+     * usuarioRepository.deleteById(iduser);: Aqui, o usuário com o ID fornecido é deletado do banco de dados usando o repositório 
+     * usuarioRepository. O método deleteById() é usado para deletar um registro com base no ID fornecido.
+     * 
+     * return new ResponseEntity<String>("Usuário deletado com sucesso", HttpStatus.OK);: Nesta linha, é criada uma instância da classe 
+     * ResponseEntity contendo a mensagem "Usuário deletado com sucesso" e o status HTTP "200 OK". A classe ResponseEntity permite que 
+     * você crie uma resposta HTTP personalizada, onde você pode definir o corpo, os cabeçalhos e o status da resposta.
+     * 
+     * Em resumo, esse método deletar() recebe um parâmetro iduser contendo o ID do usuário a ser deletado, deleta o usuário 
+     * correspondente do banco de dados usando o repositório usuarioRepository e retorna uma resposta HTTP contendo a mensagem "Usuário 
+     * deletado com sucesso" com o status "200 OK". Isso indica que a operação de deleção foi bem-sucedida.
+     * */
+    
+    // http://localhost:8000/deletar
+    @DeleteMapping(value = "deletar")
+    @ResponseBody
+    public ResponseEntity<String> deletar(@RequestParam Long iduser){
+       usuarioRepository.deleteById(iduser);;
+       
+       return new ResponseEntity<String>("Usuário deletado com sucesso", HttpStatus.OK);
     }
 }
