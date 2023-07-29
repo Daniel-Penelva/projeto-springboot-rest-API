@@ -1,0 +1,35 @@
+
+application.properties
+As propriedades de configuração do Spring Boot relacionadas à conexão com o banco de dados e à configuração do Hibernate 
+(ORM - Object-Relational Mapping). Vamos explicar cada uma delas em detalhes:
+
+1. `spring.datasource.url`: Define a URL de conexão com o banco de dados. No exemplo dado, está configurado para uma conexão com o 
+PostgreSQL em "localhost" na porta 5433 e com o banco de dados "springboot-rest-api".
+
+2. `spring.datasource.username`: Define o nome de usuário do banco de dados para autenticação.
+
+3. `spring.datasource.password`: Define a senha do usuário do banco de dados para autenticação.
+
+4. `spring.jpa.hibernate.ddl-auto`: Define a estratégia de criação/validação das tabelas do banco de dados pelo Hibernate. No exemplo, 
+está configurado como "update", o que significa que o Hibernate irá criar automaticamente as tabelas se elas ainda não existirem no banco 
+de dados, mas se as tabelas já existirem, ele apenas irá atualizar a estrutura do esquema (não apagará os dados existentes).
+
+5. `spring.datasource.driver-class-name`: Define a classe do driver do banco de dados que será usado para fazer a conexão. No exemplo, está 
+configurado para o driver do PostgreSQL.
+
+6. `spring.datasource.platform`: Define a plataforma do banco de dados que está sendo utilizada. No exemplo, está configurado como "postgres".
+
+7. `spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults`: Essa propriedade é usada para otimizar a detecção de tipos de colunas 
+do banco de dados pelo Hibernate. No exemplo, está configurado como "false" para que o Hibernate não utilize as configurações padrão do 
+JDBC para metadados de colunas.
+
+8. `spring.jpa.database-platform`: Define a classe do dialeto do banco de dados que será usada pelo Hibernate. No exemplo, está configurado 
+para o dialeto do PostgreSQL.
+
+9. `spring.jpa.properties.hibernate.dialect`: Define o dialeto do banco de dados que será usado pelo Hibernate. No exemplo, está configurado 
+para o dialeto do PostgreSQL.
+
+Essas propriedades são essenciais para configurar corretamente a conexão com o banco de dados e o comportamento do Hibernate ao trabalhar 
+com o banco de dados. Cada propriedade tem um papel importante na configuração da aplicação Spring Boot que utiliza o banco de dados 
+PostgreSQL.
+
