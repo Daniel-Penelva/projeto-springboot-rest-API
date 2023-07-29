@@ -168,3 +168,12 @@ Na aba "Body" é possível fazer pela opção 'x-www-form-urlenconded' ou o 'for
 
 Para pesquisar (ou buscar) um usuário por id pelo postman é seguido o mesmo processo do deletar por id.
 
+------------------------------------------------------------------- // --------------------------------------------------------------------
+
+No postman no end-point 'put' na aba raw e dentro do body vamos adicionar a codificação json para atualizar.
+
+{
+        "id": 2,
+        "nome": "Marcelo",
+        "idade": 39
+}

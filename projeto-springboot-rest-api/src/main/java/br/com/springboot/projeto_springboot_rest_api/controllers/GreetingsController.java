@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -196,5 +197,56 @@ public class GreetingsController {
     public ResponseEntity<Usuario> buscaruserid(@RequestParam(name = "iduser") Long iduser){
       Usuario usuario =  usuarioRepository.findById(iduser).get(); 
        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+    }
+    
+    
+    /**
+     *Temos um método do controlador que recebe uma requisição HTTP do tipo PUT na rota "/atualizar". O objetivo desse método é atualizar 
+     *os dados de um usuário no banco de dados com base nos dados fornecidos na requisição e retornar uma resposta HTTP indicando o 
+     *resultado da operação.
+     *
+     *Vamos explicar cada parte do script:
+     *
+     *@PutMapping(value = "atualizar"): Essa anotação é usada para mapear a rota "/atualizar" ao método atualizar(). Ela indica que o 
+     *método deve ser executado quando uma requisição PUT é feita para a rota "/atualizar".
+     *
+     *@ResponseBody: Essa anotação indica que o valor retornado pelo método deve ser colocado diretamente no corpo da resposta HTTP, em 
+     *vez de ser interpretado como o nome de uma view (página HTML) a ser renderizada.
+     *
+     *public ResponseEntity<?> atualizar(@RequestBody Usuario usuario): Esse é o método atualizar(), que recebe o objeto usuario como 
+     *corpo (body) da requisição HTTP. O objeto usuario é convertido a partir dos dados JSON fornecidos no corpo da requisição. A 
+     *anotação @RequestBody faz essa conversão automaticamente.
+     *
+     *if(usuario.getId() == null) { ... }: Nessa parte do código, é verificado se o objeto usuario contém um ID. Se o ID for nulo, isso 
+     *significa que o usuário ainda não está persistido no banco de dados, ou seja, é um novo usuário que está sendo criado e não pode 
+     *ser atualizado. Nesse caso, o método retorna uma resposta HTTP com status "200 OK" e uma mensagem informando que o ID não foi 
+     *informado.
+     *
+     *Usuario user = usuarioRepository.saveAndFlush(usuario);: Se o ID do usuário não for nulo, o método continua e salva o usuário 
+     *atualizado no banco de dados usando o repositório usuarioRepository e o método saveAndFlush(). O método saveAndFlush() salva o 
+     *usuário e imediatamente sincroniza os dados com o banco de dados. Isso é útil quando você quer garantir que a operação de 
+     *salvamento seja realizada imediatamente.
+     *
+     *return new ResponseEntity<Usuario>(user, HttpStatus.OK);: Nesta linha, é criada uma instância da classe ResponseEntity contendo o 
+     *usuário atualizado e o status HTTP "200 OK". A classe ResponseEntity permite que você crie uma resposta HTTP personalizada, onde 
+     *você pode definir o corpo, os cabeçalhos e o status da resposta.
+     *
+     *Em resumo, esse método atualizar() recebe um objeto usuario contendo os dados atualizados do usuário, verifica se o usuário já 
+     *possui um ID (ou seja, já existe no banco de dados), salva o usuário atualizado no banco de dados e retorna uma resposta HTTP com 
+     *o usuário atualizado e o status "200 OK". Se o ID do usuário for nulo, o método retorna uma resposta informando que o ID não foi 
+     *informado.
+     * */
+    
+    // http://localhost:8000/atualizar
+    @PutMapping(value = "atualizar")
+    @ResponseBody
+    public ResponseEntity<?> atualizar(@RequestBody Usuario usuario){
+    	
+    	if(usuario.getId() == null) {
+    		return new ResponseEntity<String>("Id não informado!", HttpStatus.OK);
+    	}
+    	
+       Usuario user = usuarioRepository.saveAndFlush(usuario);
+       return new ResponseEntity<Usuario>(user, HttpStatus.OK);
     }
 }
