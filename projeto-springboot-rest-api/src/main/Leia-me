@@ -29,6 +29,12 @@ para o dialeto do PostgreSQL.
 9. `spring.jpa.properties.hibernate.dialect`: Define o dialeto do banco de dados que será usado pelo Hibernate. No exemplo, está configurado 
 para o dialeto do PostgreSQL.
 
+10. `server.servlet.context-path`: É uma configuração usada em aplicativos Spring Boot para especificar o caminho de contexto da servlet 
+raiz para o aplicativo. O que isso significa é que, quando o aplicativo Spring Boot é iniciado, todas as solicitações HTTP para o 
+aplicativo devem começar com o caminho de contexto /projeto-springboot-rest-api. Por exemplo, se o aplicativo estiver sendo executado em 
+http://localhost:8080, uma solicitação para http://localhost:8080/projeto-springboot-rest-api/alguma-rota será roteada para o aplicativo 
+correto.
+
 Essas propriedades são essenciais para configurar corretamente a conexão com o banco de dados e o comportamento do Hibernate ao trabalhar 
 com o banco de dados. Cada propriedade tem um papel importante na configuração da aplicação Spring Boot que utiliza o banco de dados 
 PostgreSQL.

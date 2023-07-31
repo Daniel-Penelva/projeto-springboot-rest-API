@@ -34,7 +34,7 @@ public class GreetingsController {
     }
     
     
-    // http://localhost:8000/cadastrarusuario/Daniel/34
+    // http://localhost:8000/projeto-springboot-rest-api/cadastrarusuario/Daniel/34
     @RequestMapping(value = "/cadastrarusuario/{nome}/{idade}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String cadastrarUsuario(@PathVariable String nome, @PathVariable int idade) {
@@ -76,7 +76,7 @@ public class GreetingsController {
      * 
      * */
     
-    // http://localhost:8000/listatodos
+    // http://localhost:8000/projeto-springboot-rest-api/listatodos
     @GetMapping(value = "listatodos")
     @ResponseBody
     public ResponseEntity<List<Usuario>> listaUsuarios(){
@@ -114,7 +114,7 @@ public class GreetingsController {
      * que a operação de salvamento foi bem-sucedida e que um novo recurso (usuário) foi criado no servidor.
      * */
     
-    // http://localhost:8000/salvar
+    // http://localhost:8000/projeto-springboot-rest-api/salvar
     @PostMapping(value = "salvar")
     @ResponseBody
     public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
@@ -151,7 +151,7 @@ public class GreetingsController {
      * deletado com sucesso" com o status "200 OK". Isso indica que a operação de deleção foi bem-sucedida.
      * */
     
-    // http://localhost:8000/deletar
+    // http://localhost:8000/projeto-springboot-rest-api/deletar
     @DeleteMapping(value = "deletar")
     @ResponseBody
     public ResponseEntity<String> deletar(@RequestParam Long iduser){
@@ -191,7 +191,7 @@ public class GreetingsController {
      * encontrado com o status "200 OK". Isso indica que a operação de busca foi bem-sucedida.
      * */
     
-    // http://localhost:8000/buscaruserid
+    // http://localhost:8000/projeto-springboot-rest-api/buscaruserid
     @GetMapping(value = "buscaruserid")
     @ResponseBody
     public ResponseEntity<Usuario> buscaruserid(@RequestParam(name = "iduser") Long iduser){
@@ -237,7 +237,7 @@ public class GreetingsController {
      *informado.
      * */
     
-    // http://localhost:8000/atualizar
+    // http://localhost:8000/projeto-springboot-rest-api/atualizar
     @PutMapping(value = "atualizar")
     @ResponseBody
     public ResponseEntity<?> atualizar(@RequestBody Usuario usuario){
@@ -285,7 +285,7 @@ public class GreetingsController {
      * correspondentes como resposta.
      * */
     
-    // http://localhost:8000/buscarPorNome
+    // http://localhost:8000/projeto-springboot-rest-api/buscarPorNome
     @GetMapping(value = "buscarPorNome")
     @ResponseBody
     public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "nome") String nome){
