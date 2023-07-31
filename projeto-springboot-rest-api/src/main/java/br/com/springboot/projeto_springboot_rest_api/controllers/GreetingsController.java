@@ -27,12 +27,12 @@ public class GreetingsController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
     
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+	/*
+	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String greetingText(@PathVariable String name) {
         return "Hello " + name + "!";
-    }
-    
+    }*/
     
     // http://localhost:8000/projeto-springboot-rest-api/cadastrarusuario/Daniel/34
     @RequestMapping(value = "/cadastrarusuario/{nome}/{idade}", method = RequestMethod.GET)

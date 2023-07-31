@@ -183,3 +183,10 @@ No postman no end-point 'put' na aba raw e dentro do body vamos adicionar a codi
         "nome": "Marcelo",
         "idade": 39
 }
+
+------------------------------------------------------------------- // --------------------------------------------------------------------
+
+Criando a página inicial com Bootstrap
+
+Site: https://getbootstrap.com/docs/4.0/getting-started/introduction/
+Include via CDN: https://getbootstrap.com/
