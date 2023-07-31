@@ -190,3 +190,11 @@ Criando a página inicial com Bootstrap
 
 Site: https://getbootstrap.com/docs/4.0/getting-started/introduction/
 Include via CDN: https://getbootstrap.com/
+
+------------------------------------------------------------------- // --------------------------------------------------------------------
+Instalando JQuery no projeto
+
+Basta copiar o script.
+minified: https://releases.jquery.com/
+
+OBS. No caso já temos o jQuery que foi pego no momento que add o cdn do bootstrap.
