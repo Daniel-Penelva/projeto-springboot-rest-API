@@ -44,6 +44,7 @@ p {
 	<button type="button" class="btn btn-dark" onclick="salvarUsuario()">Salvar</button>
 	<button type="button" class="btn btn-danger" onclick="document.getElementById('formcadastrouser').reset();">Novo</button>
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPesquisaUser">Pesquisar Usuário</button>
+	<button type="button" class="btn btn-warning" onclick="deletarUserTela()">Deletar</button>
 
 
 	<!-- Modal -->
@@ -161,6 +162,15 @@ p {
 				alert("Erro ao deletar usuário por id: " + xhr.responseText);
 			});
 		}
+	}
+	
+	function deletarUserTela(){
+		var id = $("#id").val();
+		
+		deletarUsuario(id);
+		
+		// Limpa o formulário
+		document.getElementById('formcadastrouser').reset();
 	}
 	
 	function salvarUsuario() {

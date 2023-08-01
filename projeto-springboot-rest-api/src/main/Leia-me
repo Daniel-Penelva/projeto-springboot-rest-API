@@ -352,3 +352,43 @@ Em resumo, essa função `salvarUsuario()` é responsável por obter os valores 
 e enviar uma requisição AJAX para salvar o usuário no servidor. Em caso de sucesso, ela atualiza o ID do usuário no formulário e exibe um 
 alerta informando que o usuário foi salvo com sucesso. Em caso de erro, exibe um alerta com a mensagem de erro retornada pelo servidor.
 
+-------------- // --------------
+
+Explicando a função: deletarUsuario()
+
+Esse script é uma função JavaScript que realiza uma requisição AJAX para deletar um usuário no servidor.
+
+Vamos entender em detalhes o que cada parte do script faz:
+
+1. `function deletarUsuario(id) {`: Essa é a declaração da função `deletarUsuario`, que recebe o parâmetro `id`, que representa o ID do 
+   usuário a ser deletado.
+
+2. `if (confirm("Deseja realmente deletar o usuário?")) { ... }`: Exibe um pop-up de confirmação para o usuário, solicitando sua 
+    confirmação antes de prosseguir com a exclusão do usuário. Se o usuário clicar em "OK", a ação será executada, caso contrário, a exclusão será cancelada.
+
+3. `$.ajax({ ... })`: Aqui é onde a requisição AJAX é definida. O método `$.ajax()` é uma função do jQuery que permite realizar requisições 
+    HTTP assíncronas.
+
+4. `method: "DELETE"`: Define o método da requisição como DELETE. Ou seja, é uma requisição para excluir o usuário.
+
+5. `url: "deletar"`: Especifica a URL para a qual a requisição AJAX será enviada. Neste caso, a URL é "deletar", o que provavelmente 
+    indica que essa URL está mapeada para um método no servidor que irá deletar o usuário.
+
+6. `data: "iduser=" + id,`: Define os dados a serem enviados na requisição. Aqui, é passado um parâmetro `iduser` com o valor do ID do 
+    usuário que deve ser deletado.
+
+7. `success: function(response) { ... }`: É uma função de callback que será executada se a requisição AJAX for bem-sucedida. O parâmetro 
+   `response` conterá a mensagem de sucesso retornada pelo servidor.
+
+8. `$('#' + id).remove();`: Remove a linha da tabela que corresponde ao usuário deletado. Isso é feito utilizando o ID do usuário para 
+   selecionar a linha na tabela e removê-la.
+
+9. `alert(response);`: Exibe um alerta com a mensagem de sucesso retornada pelo servidor, informando que o usuário foi deletado com sucesso.
+
+10. `.fail(function(xhr, status, errorThrown) { ... })`: É uma função de callback que será executada se a requisição AJAX falhar por algum 
+     motivo. Ela exibe um alerta com a mensagem de erro obtida na resposta.
+
+Em resumo, essa função `deletarUsuario()` é responsável por exibir um pop-up de confirmação para o usuário antes de enviar uma requisição 
+AJAX para deletar o usuário no servidor. Se o usuário confirmar a exclusão, a requisição será enviada, o usuário será deletado no servidor 
+e a linha correspondente será removida da tabela. Em caso de erro, exibe um alerta com a mensagem de erro retornada pelo servidor.
+
