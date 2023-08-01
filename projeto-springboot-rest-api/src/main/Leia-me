@@ -198,3 +198,12 @@ Basta copiar o script.
 minified: https://releases.jquery.com/
 
 OBS. No caso já temos o jQuery que foi pego no momento que add o cdn do bootstrap.
+
+------------------------------------------------------------------- // --------------------------------------------------------------------
+Botão de novo - fazer um reset
+
+Em jquery
+https://www.geeksforgeeks.org/how-to-reset-a-form-using-jquery-with-reset-method/
+
+Em javascript
+https://www.w3schools.com/jsref/met_form_reset.asp
