@@ -323,6 +323,19 @@ Vamos entender em detalhes o que cada parte do script faz:
 
 4. `var idade = $("#idade").val();`: Obtém o valor do campo de entrada com ID "idade" e armazena na variável `idade`.
 
+  -> if (nome == null || nome != null && nome.trim() == '') { ... }: Verifica se o campo "nome" está vazio ou contém apenas espaços em 
+     branco. Se isso for verdadeiro, significa que o campo está em branco ou contém apenas espaços vazios. Nesse caso, a função exibirá 
+     um alerta informando "Informe o nome" e moverá o foco para o campo "nome". O comando return; é usado para sair da função e impedir 
+     que o salvamento prossiga enquanto o campo não estiver preenchido.
+
+   -> $("#nome").focus();: O método focus() é usado para mover o foco do cursor para o campo "nome", ou seja, o cursor será posicionado 
+      automaticamente nesse campo quando o alerta for exibido.
+
+   -> if (idade == null || idade != null && idade.trim() == '') { ... }: Verifica se o campo "idade" está vazio ou contém apenas espaços 
+      em branco. Se isso for verdadeiro, significa que o campo está em branco ou contém apenas espaços vazios. Nesse caso, a função 
+      exibirá um alerta informando "Informe a idade" e moverá o foco para o campo "idade". O comando return; é usado para sair da função 
+      e impedir que o salvamento prossiga enquanto o campo não estiver preenchido.
+
 5. `$.ajax({ ... })`: Aqui é onde a requisição AJAX é definida. O método `$.ajax()` é uma função do jQuery que permite realizar requisições 
 HTTP assíncronas.
 

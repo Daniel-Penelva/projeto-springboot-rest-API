@@ -17,6 +17,13 @@ p {
 	color: white;
 	padding-left: 38%;
 }
+
+html{
+margin-left: 5%;
+margin-right: 5%;
+margin-top: 5%;
+margin-bottom: 5%;
+}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Spring Boot Rest API com bootstrap</title>
@@ -67,18 +74,21 @@ p {
 					</form>
 
 					<br />
-					<table class="table table-striped table-dark" id="tabelaResultados">
-						<thead>
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Nome</th>
-								<th scope="col">Editar</th>
-								<th scope="col">Deletar</th>
-							</tr>
-						</thead>
-						<tbody>				
-						</tbody>
-					</table>
+					
+					<div style="height:300px; overflow:scroll;">
+						<table class="table table-striped table-dark" id="tabelaResultados">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Editar</th>
+									<th scope="col">Deletar</th>
+								</tr>
+							</thead>
+							<tbody>				
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
@@ -167,17 +177,33 @@ p {
 	function deletarUserTela(){
 		var id = $("#id").val();
 		
-		deletarUsuario(id);
-		
-		// Limpa o formulário
-		document.getElementById('formcadastrouser').reset();
+		// validação do botão deletar da tela 
+		if(id != null && id.trim() != ''){
+			deletarUsuario(id);
+			
+			// Limpa o formulário
+			document.getElementById('formcadastrouser').reset();
+		}
 	}
 	
 	function salvarUsuario() {
 
-			var id = $("#id").val();
-			var nome = $("#nome").val();
-			var idade = $("#idade").val();
+		var id = $("#id").val();
+		var nome = $("#nome").val();
+		var idade = $("#idade").val();
+		
+		//Validando nome e idade para não cadastra os valores vazios
+		if(nome == null || nome != null && nome.trim() == ''){
+			$("#nome").focus();
+			alert("Informe o nome");
+			return;
+		}
+		
+		if(idade == null || idade != null && idade.trim() == ''){
+			$("#idade").focus();
+			alert("Informe a idade");
+			return;
+		}
 
 			// O código abaixo é o padrão - basta apenas copiar e colar, pois vai ser sempre assim.
 			$.ajax({
