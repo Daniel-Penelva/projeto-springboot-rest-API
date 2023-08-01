@@ -112,7 +112,7 @@ p {
 					$("#tabelaResultados > tbody > tr").remove();
 					
 					for(var i=0; i<response.length; i++){
-						$("#tabelaResultados > tbody").append("<tr><td>"+ response[i].id +"</td><td>" + response[i].nome+ '</td><td></td></tr>');
+						$("#tabelaResultados > tbody").append("<tr><td>"+ response[i].id +"</td><td>" + response[i].nome+ '</td><td><button type="button" onclick="editarUsuario('+ response[i].id +')" class="btn btn-success">Ver</button></td></tr>');
 					}
 				}
 			}).fail(function(xhr, status, errorThrown) {
@@ -120,8 +120,27 @@ p {
 			});
 		}
 	}
-	
-		function salvarUsuario() {
+		
+	function editarUsuario(id) {
+			$.ajax({
+				method : "GET",
+				url : "buscaruserid",
+				data : "iduser=" + id,
+				success : function(response) {
+					
+					$("#id").val(response.id);
+					$("#nome").val(response.nome);
+					$("#idade").val(response.idade);
+					
+					// Para retirar o modal quando clicar no botão ver o usuário
+					$("#modalPesquisaUser").modal("hide");
+				}
+			}).fail(function(xhr, status, errorThrown) {
+				alert("Erro ao buscar usuário por id: " + xhr.responseText);
+			});
+	}
+
+	function salvarUsuario() {
 
 			var id = $("#id").val();
 			var nome = $("#nome").val();
@@ -131,7 +150,11 @@ p {
 			$.ajax({
 				method : "POST",
 				url : "salvar",
-				data : JSON.stringify({id : id, nome : nome, idade : idade}),
+				data : JSON.stringify({
+					id : id,
+					nome : nome,
+					idade : idade
+				}),
 				contentType : "application/json; charset=utf-8",
 				success : function(response) {
 					$("#id").val(response.id);
@@ -140,8 +163,7 @@ p {
 			}).fail(function(xhr, status, errorThrown) {
 				alert("Erro ao salvar: " + xhr.responseText);
 			});
-
-		}
+	}
 	</script>
 </body>
 </html>

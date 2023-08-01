@@ -224,3 +224,131 @@ Já os parametros são capturados da seguinte maneira:
                                         |
   buscarPorNome(@RequestParam(name = "nome") String nome)
 
+-------------- // --------------
+Explicando a função: PesquisarUser()
+
+Esse script é uma função JavaScript chamada `pesquisarUser()`, que é acionada quando o usuário realiza uma pesquisa de usuário com base em 
+um nome fornecido em um campo de entrada.
+
+Vamos analisar o código passo a passo:
+
+1. A função é acionada quando o usuário clica em um botão ou executa alguma ação para iniciar a pesquisa.
+
+2. Ele obtém o valor digitado pelo usuário em um campo de entrada com o id `nameBusca` e armazena na variável `nome`.
+
+3. Verifica se o valor de `nome` não é nulo e se não contém apenas espaços em branco usando a função `trim()`. Se o valor for válido, o 
+código dentro do bloco `if` será executado.
+
+4. Em seguida, é feita uma requisição AJAX para o servidor usando o método GET e a URL `buscarPorNome`. O parâmetro de consulta `nome` 
+é adicionado à URL com o valor fornecido pelo usuário.
+
+  -> data: É uma opção do objeto de configuração da requisição AJAX que especifica os dados a serem enviados ao servidor. No caso, é um 
+           parâmetro de consulta que será anexado à URL da requisição GET.
+
+  -> "nome=": É uma string que define o nome do parâmetro. Neste caso, o parâmetro de consulta será chamado de nome.
+
+  -> + nome: É uma concatenação de strings que adiciona o valor da variável nome à string do parâmetro. O valor da variável nome contém o 
+             texto digitado pelo usuário no campo de entrada.
+
+5. Se a requisição for bem-sucedida, a função `success` é executada. O resultado da resposta da requisição é um array de objetos de 
+usuário (response), que contém as informações dos usuários correspondentes à pesquisa.
+
+6. Primeiro, todos os elementos `tr` dentro do elemento com o id `tabelaResultados` são removidos, para que a tabela de resultados esteja 
+limpa para exibir os resultados da pesquisa atual.
+
+7. Em seguida, é feito um loop pelo array `response`, e para cada usuário encontrado, uma nova linha `tr` é criada na tabela 
+`tabelaResultados` com os dados do usuário. O botão "Ver" também é adicionado para permitir ao usuário visualizar mais detalhes ou editar 
+o usuário.
+
+8. Se a requisição AJAX falhar, o código dentro da função `fail` será executado e uma mensagem de erro será exibida em um alerta.
+
+Em resumo, essa função realiza uma pesquisa de usuário por nome usando uma requisição AJAX e atualiza a tabela de resultados na página 
+com os usuários correspondentes encontrados na resposta.
+
+-------------- // --------------
+
+Explicando a função: editarUsuario(id)
+
+Esse script é uma função JavaScript que realiza uma requisição AJAX para buscar um usuário por seu ID e preencher os campos de um 
+formulário de edição com os dados encontrados.
+
+Vamos entender em detalhes o que cada parte do script faz:
+
+1. `function editarUsuario(id) {`: Essa é a declaração da função `editarUsuario` que recebe um parâmetro `id`, que é o ID do usuário que 
+    se deseja editar.
+
+2. `$.ajax({ ... })`: Aqui é onde a requisição AJAX é definida. O método `$.ajax()` é uma função do jQuery que permite realizar requisições 
+    HTTP assíncronas.
+
+3. `method: "GET"`: Define o método da requisição como GET. Ou seja, é uma requisição de busca.
+
+4. `url: "buscaruserid"`: Especifica a URL para a qual a requisição AJAX será enviada. Neste caso, a URL é "buscaruserid", o que 
+    provavelmente indica que essa URL está mapeada para um método no servidor que busca um usuário pelo ID.
+
+5. `data: "iduser=" + id`: Define os dados a serem enviados na requisição. Aqui, é passado o parâmetro `iduser` com o valor do parâmetro 
+   `id`, que é o ID do usuário que se deseja buscar.
+
+6. `success: function(response) { ... }`: É uma função de callback que será executada se a requisição AJAX for bem-sucedida. O parâmetro 
+   `response` conterá os dados do usuário retornado pelo servidor.
+
+7. `$("#id").val(response.id);`: Define o valor do campo de entrada com o ID do usuário retornado na resposta.
+
+8. `$("#nome").val(response.nome);`: Define o valor do campo de entrada com o nome do usuário retornado na resposta.
+
+9. `$("#idade").val(response.idade);`: Define o valor do campo de entrada com a idade do usuário retornado na resposta.
+
+10. `$("#modalPesquisaUser").modal("hide");`: Esconde o modal (janela de diálogo) que foi utilizado para exibir os resultados da pesquisa 
+    de usuários. Isso é feito para que, ao clicar no botão "ver usuário", o modal seja fechado e o formulário de edição seja exibido na 
+    tela.
+
+11. `.fail(function(xhr, status, errorThrown) { ... })`: É uma função de callback que será executada se a requisição AJAX falhar por algum 
+     motivo. Ela exibe um alerta com a mensagem de erro obtida na resposta.
+
+Em resumo, essa função `editarUsuario(id)` é responsável por buscar um usuário pelo ID através de uma requisição AJAX e preencher os 
+campos de um formulário de edição com os dados encontrados.
+
+-------------- // --------------
+
+Explicando a função: salvarUsuario()
+
+Esse script é uma função JavaScript que realiza uma requisição AJAX para salvar um usuário no servidor.
+
+Vamos entender em detalhes o que cada parte do script faz:
+
+1. `function salvarUsuario() {`: Essa é a declaração da função `salvarUsuario`.
+
+2. `var id = $("#id").val();`: Obtém o valor do campo de entrada com ID "id" e armazena na variável `id`.
+
+3. `var nome = $("#nome").val();`: Obtém o valor do campo de entrada com ID "nome" e armazena na variável `nome`.
+
+4. `var idade = $("#idade").val();`: Obtém o valor do campo de entrada com ID "idade" e armazena na variável `idade`.
+
+5. `$.ajax({ ... })`: Aqui é onde a requisição AJAX é definida. O método `$.ajax()` é uma função do jQuery que permite realizar requisições 
+HTTP assíncronas.
+
+6. `method: "POST"`: Define o método da requisição como POST. Ou seja, é uma requisição de criação ou atualização.
+
+7. `url: "salvar"`: Especifica a URL para a qual a requisição AJAX será enviada. Neste caso, a URL é "salvar", o que provavelmente indica 
+que essa URL está mapeada para um método no servidor que irá salvar o usuário.
+
+8. `data: JSON.stringify({ id: id, nome: nome, idade: idade }),`: Define os dados a serem enviados na requisição. Aqui, é passado um objeto 
+JSON contendo as propriedades `id`, `nome` e `idade`, que serão enviadas como parâmetros para o servidor.
+
+9. `contentType: "application/json; charset=utf-8",`: Define o tipo de conteúdo da requisição como "application/json". Isso indica que os 
+dados enviados estão no formato JSON.
+
+10. `success: function(response) { ... }`: É uma função de callback que será executada se a requisição AJAX for bem-sucedida. O parâmetro 
+`response` conterá os dados do usuário retornado pelo servidor.
+
+11. `$("#id").val(response.id);`: Define o valor do campo de entrada com o ID "id" com o ID do usuário retornado na resposta. Isso é feito 
+para atualizar o ID no formulário, caso o usuário tenha sido criado no servidor e tenha recebido um novo ID.
+
+12. `alert("Salvo com sucesso!");`: Exibe um alerta informando que o usuário foi salvo com sucesso.
+
+13. `.fail(function(xhr, status, errorThrown) { ... })`: É uma função de callback que será executada se a requisição AJAX falhar por algum 
+motivo. Ela exibe um alerta com a mensagem de erro obtida na resposta.
+
+Em resumo, essa função `salvarUsuario()` é responsável por obter os valores do formulário de usuário, criar um objeto JSON com esses valores 
+e enviar uma requisição AJAX para salvar o usuário no servidor. Em caso de sucesso, ela atualiza o ID do usuário no formulário e exibe um 
+alerta informando que o usuário foi salvo com sucesso. Em caso de erro, exibe um alerta com a mensagem de erro retornada pelo servidor.
+
