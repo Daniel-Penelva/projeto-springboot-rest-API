@@ -6,8 +6,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<style type="text/css">
-
+	<style type="text/css">
 p {
 	display: block;
 	margin-block-start: 1em;
@@ -17,70 +16,132 @@ p {
 	background-color: #2bbbad;
 	color: white;
 	padding-left: 38%;
-	
 }
-
 </style>
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Spring Boot Rest API com bootstrap</title>
 </head>
 <body>
-	
+
 	<form action="" id="formcadastrouser">
 		<div class="mb-3">
-		    <label for="id" class="form-label">ID</label>
-		    <input type="text" class="form-control" id="id" readonly="readonly">
-  		</div>
-  		
-  		<div class="mb-3">
-		    <label for="nome" class="form-label">Nome</label>
-		    <input type="text" class="form-control" id="nome" placeholder="Informo o nome" required="required">
-  		</div>
-  		
-  		<div class="mb-3">
-		    <label for="idade" class="form-label">Idade</label>
-		    <input type="number" class="form-control" id="idade">
-  		</div>
-  		
+			<label for="id" class="form-label">ID</label> 
+			<input type="text" class="form-control" id="id" readonly="readonly">
+		</div>
+
+		<div class="mb-3">
+			<label for="nome" class="form-label">Nome</label> 
+			<input type="text" class="form-control" id="nome" placeholder="Informo o nome" required="required">
+		</div>
+
+		<div class="mb-3">
+			<label for="idade" class="form-label">Idade</label> 
+			<input type="number" class="form-control" id="idade">
+		</div>
+
 	</form>
-	
+
 	<button type="button" class="btn btn-dark" onclick="salvarUsuario()">Salvar</button>
 	<button type="button" class="btn btn-danger" onclick="document.getElementById('formcadastrouser').reset();">Novo</button>
-	
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPesquisaUser">Pesquisar Usuário</button>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalPesquisaUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisar Usuário</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="nameBusca" class="col-form-label">Informe o nome:</label> 
+							<input type="text" class="form-control" id="nameBusca">
+						</div>
+						<button type="button" class="btn btn-success" onclick="pesquisarUser()">Buscar</button>
+					</form>
+
+					<br />
+					<table class="table table-striped table-dark" id="tabelaResultados">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Editar</th>
+							</tr>
+						</thead>
+						<tbody>				
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<p>Spring Boot Rest API com bootstrap</p>
-	
-	
+
 	<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-	
+
 	<!-- then Popper.js, then Bootstrap JS -->
-	
+
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	
+
 	<script type="text/javascript">
-		function salvarUsuario(){
-			
+	
+	//Pesquisar usuário no modal
+	function pesquisarUser(){
+		var nome = $("#nameBusca").val();
+		
+		if(nome != null && nome.trim() != ''){
+			$.ajax({
+				method : "GET",
+				url : "buscarPorNome",
+				data : "nome=" + nome,
+				success : function(response) {
+					$("#tabelaResultados > tbody > tr").remove();
+					
+					for(var i=0; i<response.length; i++){
+						$("#tabelaResultados > tbody").append("<tr><td>"+ response[i].id +"</td><td>" + response[i].nome+ '</td><td></td></tr>');
+					}
+				}
+			}).fail(function(xhr, status, errorThrown) {
+				alert("Erro ao buscar usuário: " + xhr.responseText);
+			});
+		}
+	}
+	
+		function salvarUsuario() {
+
 			var id = $("#id").val();
 			var nome = $("#nome").val();
 			var idade = $("#idade").val();
-			
+
 			// O código abaixo é o padrão - basta apenas copiar e colar, pois vai ser sempre assim.
 			$.ajax({
-				method: "POST",
-				url: "salvar",
-				data: JSON.stringify({id : id, nome : nome, idade: idade}),
-				contentType: "application/json; charset=utf-8",
-				success: function(response){
+				method : "POST",
+				url : "salvar",
+				data : JSON.stringify({id : id, nome : nome, idade : idade}),
+				contentType : "application/json; charset=utf-8",
+				success : function(response) {
 					$("#id").val(response.id);
 					alert("Salvo com sucesso!");
 				}
-			}).fail(function(xhr, status, errorThrown){
+			}).fail(function(xhr, status, errorThrown) {
 				alert("Erro ao salvar: " + xhr.responseText);
 			});
-			
-		} 
+
+		}
 	</script>
 </body>
 </html>
